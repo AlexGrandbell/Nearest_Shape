@@ -6,15 +6,15 @@
 
 //随机生成两个端点以构造线段
 LineSegment::LineSegment():start(),end() {
-    if (start == end) throw myExpection("点重复");
+    while (start == end) end = Point();
 }
 //手动输入两个点的坐标
 LineSegment::LineSegment(double x1,double y1,double x2,double y2):start(x1,y1),end(x2,y2){
-    if (start == end) throw myExpection("点重复");
+    while (start == end) end = Point();
 }
 //传入两个点作为两个端点
 LineSegment::LineSegment(const Point& p1,const Point& p2):start(p1),end(p2){
-    if (start == end) throw myExpection("点重复");
+    while (start == end) end = Point();
 }
 //复制构造函数
 LineSegment::LineSegment(const LineSegment& ls):start(ls.start),end(ls.end){}
@@ -156,4 +156,13 @@ double lineSegmentsDistance(const LineSegment& ls1,const LineSegment& ls2){
     d7 = pointsDistance(ls1.end,ls2.start);
     d8 = pointsDistance(ls1.end,ls2.end);
     return min({d1,d2,d3,d4,d5,d6,d7,d8});
+}
+//判断与已有线段是否相交
+bool isAnyLineSegmentIntersect(const vector<LineSegment>& lss, const LineSegment& newLS) {
+    for (const auto& ls : lss) {
+        if (isLineSegmentIntersect(newLS, ls)) {
+            return true;
+        }
+    }
+    return false;
 }

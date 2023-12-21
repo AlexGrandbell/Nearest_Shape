@@ -5,7 +5,7 @@
 #ifndef NEAREST_SHAPE_MANAGEMENT_H
 #define NEAREST_SHAPE_MANAGEMENT_H
 
-#include "Triangle.h"
+#include "Triangle/Triangle.h"
 
 class Management {
 

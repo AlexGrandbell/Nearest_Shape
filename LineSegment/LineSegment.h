@@ -5,7 +5,7 @@
 #ifndef NEAREST_SHAPE_LINESEGMENT_H
 #define NEAREST_SHAPE_LINESEGMENT_H
 
-#include "Point.h"
+#include "../Point/Point.h"
 
 struct LineSegment {
     ////端点坐标
@@ -34,7 +34,7 @@ struct LineSegment {
     double length()const;
 };
 
-//重载输出流函数。这里为了方便输出到文件，不加其他标识。
+//重载输出流函数
 ostream& operator<<(ostream& out,const LineSegment& ls);
 //重载等于
 bool operator==(const LineSegment& lsl,const LineSegment& lsr);
@@ -54,5 +54,7 @@ bool isPointAboveLineSegment(const Point& C,const LineSegment& ls);
 double lineAndPointDistance(const Point& p,const LineSegment& ls);
 //计算线段之间的距离
 double lineSegmentsDistance(const LineSegment& ls1,const LineSegment& ls2);
+//判断与已有线段是否相交
+bool isAnyLineSegmentIntersect(const vector<LineSegment>& lss, const LineSegment& newLS);
 
 #endif //NEAREST_SHAPE_LINESEGMENT_H

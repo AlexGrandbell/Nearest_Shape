@@ -5,7 +5,7 @@
 #ifndef NEAREST_SHAPE_POINT_H
 #define NEAREST_SHAPE_POINT_H
 
-#include "Tool.h"
+#include "../Tool/Tool.h"
 
 class Point {
 public:
