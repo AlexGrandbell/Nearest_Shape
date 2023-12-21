@@ -12,19 +12,39 @@ private:
     //点集元素
     vector<Point> points;
     //运行计时工具
-    clock_t start_time,end_time;
-    double time_used;
+    clock_t startTime,endTime;
+
 public:
     ////构造函数
     //默认构造函数
     PointManagement();
-    //自动生成n个点的构造函数，同时保存文件
-    PointManagement(int);
 
-    ////方法
+    ////展示方法
     //分治法查找最近点对
+    void DividePoint();
+    //自己的算法查找最近点对
+    void MyPointAlgorithm();
+    //暴力算法
+    void BruteForcePoint();
 
+    ////更新数据方法
+    //再次随机生成n个
+    void AutoUpdatePoints(int);
+    //自己输入n个
+    void InputUpdatePoints(int);
+
+private:
+    ////分治法方法
+    //主分治法
+    pair<Point, Point> divideAndConquerPoints(const vector<Point>& points);
+    //中心区域查找
+    pair<Point, Point> divideAndConquerStripPoints(const vector<Point>& points);
+
+    ////自己想出来的算法，O(n)时间复杂度！
+    pair<Point, Point> narrowingDownPoints(const vector<Point>& points);
+
+    ////纯暴力算法
+    pair<Point, Point> bruteForceClosestPairPoints(const vector<Point>& points);
 };
-
 
 #endif //NEAREST_SHAPE_POINTMANAGEMENT_H

@@ -5,11 +5,12 @@
 #ifndef NEAREST_SHAPE_MANAGEMENT_H
 #define NEAREST_SHAPE_MANAGEMENT_H
 
-#include "Triangle/Triangle.h"
+#include "Point/PointManagement.h"
+#include "LineSegment/LineSegementManagement.h"
+#include "Triangle/TriangleManagement.h"
 
 class Management {
 
 };
-
 
 #endif //NEAREST_SHAPE_MANAGEMENT_H

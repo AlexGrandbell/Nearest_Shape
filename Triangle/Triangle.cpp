@@ -83,14 +83,14 @@ double trianglesDistance(const Triangle& tl,const Triangle& tr){
     //如果重叠，返回0
     if (isTriangleOverlap(tl, tr)) return 0.0;
     double
-    d1 = lineSegmentsDistance(tl.a,tr.a),
-    d2 = lineSegmentsDistance(tl.a,tr.b),
-    d3 = lineSegmentsDistance(tl.a,tr.c),
-    d4 = lineSegmentsDistance(tl.b,tr.a),
-    d5 = lineSegmentsDistance(tl.b,tr.b),
-    d6 = lineSegmentsDistance(tl.b,tr.c),
-    d7 = lineSegmentsDistance(tl.c,tr.a),
-    d8 = lineSegmentsDistance(tl.c,tr.b),
-    d9 = lineSegmentsDistance(tl.c,tr.c);
+            d1 = lineSegmentsDistance(tl.a,tr.a),
+            d2 = lineSegmentsDistance(tl.a,tr.b),
+            d3 = lineSegmentsDistance(tl.a,tr.c),
+            d4 = lineSegmentsDistance(tl.b,tr.a),
+            d5 = lineSegmentsDistance(tl.b,tr.b),
+            d6 = lineSegmentsDistance(tl.b,tr.c),
+            d7 = lineSegmentsDistance(tl.c,tr.a),
+            d8 = lineSegmentsDistance(tl.c,tr.b),
+            d9 = lineSegmentsDistance(tl.c,tr.c);
     return min({d1,d2,d3,d4,d5,d6,d7,d8,d9});
 }

@@ -13,7 +13,6 @@ ostream& operator<<(ostream& out,const Point& p){
 bool operator==(const Point& pl,const Point& pr){
     return (fabs(pl.x-pl.x)<=1e-9)&&(fabs(pl.y-pl.y)<=1e-9);
 }
-
 //用于传入sort进行比较排序
 bool comparePointX(const Point& p1, const Point& p2) {
     return p1.x < p2.x;
