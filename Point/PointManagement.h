@@ -29,22 +29,29 @@ public:
 
     ////更新数据方法
     //再次随机生成n个
-    void AutoUpdatePoints(int);
+    void AutoUpdatePoints();
     //自己输入n个
-    void InputUpdatePoints(int);
+    void InputUpdatePoints();
 
 private:
+    //////比较算法
     ////分治法方法
     //主分治法
-    pair<Point, Point> divideAndConquerPoints(const vector<Point>& points);
+    pair<Point, Point> divideAndConquerPoints(const vector<Point>& points)const;
     //中心区域查找
-    pair<Point, Point> divideAndConquerStripPoints(const vector<Point>& points);
+    pair<Point, Point> divideAndConquerStripPoints(const vector<Point>& points)const;
 
     ////自己想出来的算法，O(n)时间复杂度！
-    pair<Point, Point> narrowingDownPoints(const vector<Point>& points);
+    pair<Point, Point> narrowingDownPoints(const vector<Point>& points)const;
 
     ////纯暴力算法
-    pair<Point, Point> bruteForceClosestPairPoints(const vector<Point>& points);
+    pair<Point, Point> bruteForceClosestPairPoints(const vector<Point>& points)const;
+
+    //////小工具
+    //输入n
+    int inputN();
+    //比较点是否存在
+    bool isPointExistIn(const Point& p,const vector<Point>& ps)const;
 };
 
 #endif //NEAREST_SHAPE_POINTMANAGEMENT_H

@@ -10,8 +10,8 @@ add_executable(Nearest_Shape main.cpp
         LineSegment/LineSegment.h
         Triangle/Triangle.cpp
         Triangle/Triangle.h
-        Management.cpp
-        Management.h
+        Management/Management.cpp
+        Management/Management.h
         Tool/Tool.h
         Tool/Tool.cpp
         Point/PointManagement.cpp
