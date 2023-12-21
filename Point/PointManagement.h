@@ -27,6 +27,12 @@ public:
     //暴力算法
     void BruteForcePoint();
 
+    ////输出方法
+    //输出到文件，需要输入文件名
+    void OutputPointsToFile();
+    //输出到屏幕
+    void OutputPointsToScreen();
+
     ////更新数据方法
     //再次随机生成n个
     void AutoUpdatePoints();

@@ -22,7 +22,7 @@ void PointManagement::DividePoint(){
 void PointManagement::MyPointAlgorithm(){
     cout<<"开始使用自己优化的算法查找最近点对..."<<endl;
     startTime = clock();
-    pair<Point, Point> closestPointPairResult = divideAndConquerPoints(points);
+    pair<Point, Point> closestPointPairResult = narrowingDownPoints(points);
     endTime = clock();
     printf("算法结束，运行时间%f秒",((double)(endTime - startTime)) / CLOCKS_PER_SEC);
     cout<<"点对结果为:("<<closestPointPairResult.first<<")和("<<closestPointPairResult.second<<")"<<endl;
@@ -32,11 +32,45 @@ void PointManagement::MyPointAlgorithm(){
 void PointManagement::BruteForcePoint(){
     cout<<"开始使用枚举法查找最近点对..."<<endl;
     startTime = clock();
-    pair<Point, Point> closestPointPairResult = divideAndConquerPoints(points);
+    pair<Point, Point> closestPointPairResult = bruteForceClosestPairPoints(points);
     endTime = clock();
     printf("枚举法结束，运行时间%f秒",((double)(endTime - startTime)) / CLOCKS_PER_SEC);
     cout<<"点对结果为:("<<closestPointPairResult.first<<")和("<<closestPointPairResult.second<<")"<<endl;
     cout<<"距离为:"<<pointsDistance(closestPointPairResult.first,closestPointPairResult.second)<<endl;
+}
+
+////输出方法
+//输出到文件，需要输入文件名
+void PointManagement::OutputPointsToFile(){
+    cout<<"请输入文件名:";
+    string fileName = inputString();
+    cout<<"开始覆盖点集数据到文件\""<<fileName<<"\""<<endl;
+    ofstream outFile(fileName);
+    if (points.size()>0) {
+        if (outFile.is_open()) {
+            for (Point p: points) {
+                outFile << p << endl;
+            }
+            outFile.close();
+            cout << "数据已保存到文件\"" << fileName << "\"" << endl;
+        } else {
+            cout << "无法打开文件进行输出，文件输出失败，程序继续" << endl;
+        }
+    } else{
+        cout<<"没有数据，无需输出"<<endl;
+    }
+}
+//输出到屏幕
+void PointManagement::OutputPointsToScreen() {
+    cout << "开始输出点集数据" << endl;
+    if (points.size() > 0) {
+        for (Point p: points) {
+            cout << p << endl;
+        }
+        cout << "点集数据输出完成，共" << points.size() << "个点" << endl;
+    } else {
+        cout << "没有数据，无需输出" << endl;
+    }
 }
 
 ////更新数据方法
@@ -47,13 +81,14 @@ void PointManagement::AutoUpdatePoints() {
     vector<Point> tempPoints;
     for (int i = 0; i < n; ++i) {
         Point tempPoint;
-        while (isPointExistIn(tempPoint, tempPoints)) {
-            tempPoint = Point();
-        }
+        //由于点相等可能性较小，为了生成性能这里注释了检查。您也可以考虑启用
+//        while (isPointExistIn(tempPoint, tempPoints)) {
+//            tempPoint = Point();
+//        }
         tempPoints.push_back(tempPoint);
         if (n>=10000) progressBar(i,n);//展示进度
     }
-    cout << "是否要要将生成的数据保存文件\"" << n << "个点数据\"?(0-否,1-是):";
+    cout << "是否要要将生成的数据保存到文件\"" << n << "个点数据\"?(0-否,1-是):";
     if (inputInt() == 1) {
         string fileName = to_string(n) + "个点数据.txt";
         ofstream outFile(fileName);
@@ -68,6 +103,7 @@ void PointManagement::AutoUpdatePoints() {
         }
     }
     points = tempPoints;
+    sort(points.begin(),points.end(), comparePointX);//重要排序，不能删除
     cout<< n <<"个点数据生成完成"<<endl;
 }
 //自己输入n个
@@ -82,6 +118,7 @@ void PointManagement::InputUpdatePoints(){
         tempPoints.push_back(Point(inputDouble(),inputDouble()));
     }
     points = tempPoints;
+    sort(points.begin(),points.end(), comparePointX);//重要排序，不能删除
     cout<< n <<"个点数据生成完成"<<endl;
 }
 
@@ -145,7 +182,7 @@ pair<Point, Point> PointManagement::narrowingDownPoints(const vector<Point>& tem
     pair<Point, Point> closestPointPair;
     for (int i = 0; i < size; ++i) {
         for (int j = i + 1; j < size; ++j) {
-            if (points[j].x-points[i].x>minDistance){//若右边超过了，则直接终止此轮程序
+            if ((points[j].x-points[i].x)>minDistance){//若右边超过了，则直接终止此轮程序
                 break;
             } else if (fabs(points[i].y-points[j].y)>minDistance){//若竖直方向超出，则直接排除
                 continue;

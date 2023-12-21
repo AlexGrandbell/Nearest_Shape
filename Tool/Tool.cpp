@@ -14,6 +14,7 @@ int inputInt(){
 
 string inputString(){
     string tmp;
+    fflush(stdin);
     cin>>tmp;
     exitTest(tmp);
     return tmp;

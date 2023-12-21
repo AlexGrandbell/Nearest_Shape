@@ -73,11 +73,11 @@ build CMakeFiles/Nearest_Shape.dir/Triangle/Triangle.cpp.o: CXX_COMPILER__Neares
   OBJECT_DIR = CMakeFiles/Nearest_Shape.dir
   OBJECT_FILE_DIR = CMakeFiles/Nearest_Shape.dir/Triangle
 
-build CMakeFiles/Nearest_Shape.dir/Management.cpp.o: CXX_COMPILER__Nearest_Shape_unscanned_Debug /Users/shenjiarui/Documents/我的文档/武汉理工大学/正在学/计算机思维与算法设计/大报告/级别4_合并/Nearest_Shape/Management.cpp || cmake_object_order_depends_target_Nearest_Shape
-  DEP_FILE = CMakeFiles/Nearest_Shape.dir/Management.cpp.o.d
+build CMakeFiles/Nearest_Shape.dir/Management/Management.cpp.o: CXX_COMPILER__Nearest_Shape_unscanned_Debug /Users/shenjiarui/Documents/我的文档/武汉理工大学/正在学/计算机思维与算法设计/大报告/级别4_合并/Nearest_Shape/Management/Management.cpp || cmake_object_order_depends_target_Nearest_Shape
+  DEP_FILE = CMakeFiles/Nearest_Shape.dir/Management/Management.cpp.o.d
   FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fcolor-diagnostics
   OBJECT_DIR = CMakeFiles/Nearest_Shape.dir
-  OBJECT_FILE_DIR = CMakeFiles/Nearest_Shape.dir
+  OBJECT_FILE_DIR = CMakeFiles/Nearest_Shape.dir/Management
 
 build CMakeFiles/Nearest_Shape.dir/Tool/Tool.cpp.o: CXX_COMPILER__Nearest_Shape_unscanned_Debug /Users/shenjiarui/Documents/我的文档/武汉理工大学/正在学/计算机思维与算法设计/大报告/级别4_合并/Nearest_Shape/Tool/Tool.cpp || cmake_object_order_depends_target_Nearest_Shape
   DEP_FILE = CMakeFiles/Nearest_Shape.dir/Tool/Tool.cpp.o.d
@@ -111,7 +111,7 @@ build CMakeFiles/Nearest_Shape.dir/Triangle/TriangleManagement.cpp.o: CXX_COMPIL
 #############################################
 # Link the executable Nearest_Shape
 
-build Nearest_Shape: CXX_EXECUTABLE_LINKER__Nearest_Shape_Debug CMakeFiles/Nearest_Shape.dir/main.cpp.o CMakeFiles/Nearest_Shape.dir/Point/Point.cpp.o CMakeFiles/Nearest_Shape.dir/LineSegment/LineSegment.cpp.o CMakeFiles/Nearest_Shape.dir/Triangle/Triangle.cpp.o CMakeFiles/Nearest_Shape.dir/Management.cpp.o CMakeFiles/Nearest_Shape.dir/Tool/Tool.cpp.o CMakeFiles/Nearest_Shape.dir/Point/PointManagement.cpp.o CMakeFiles/Nearest_Shape.dir/LineSegment/LineSegementManagement.cpp.o CMakeFiles/Nearest_Shape.dir/Triangle/TriangleManagement.cpp.o
+build Nearest_Shape: CXX_EXECUTABLE_LINKER__Nearest_Shape_Debug CMakeFiles/Nearest_Shape.dir/main.cpp.o CMakeFiles/Nearest_Shape.dir/Point/Point.cpp.o CMakeFiles/Nearest_Shape.dir/LineSegment/LineSegment.cpp.o CMakeFiles/Nearest_Shape.dir/Triangle/Triangle.cpp.o CMakeFiles/Nearest_Shape.dir/Management/Management.cpp.o CMakeFiles/Nearest_Shape.dir/Tool/Tool.cpp.o CMakeFiles/Nearest_Shape.dir/Point/PointManagement.cpp.o CMakeFiles/Nearest_Shape.dir/LineSegment/LineSegementManagement.cpp.o CMakeFiles/Nearest_Shape.dir/Triangle/TriangleManagement.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk
   OBJECT_DIR = CMakeFiles/Nearest_Shape.dir
   POST_BUILD = :

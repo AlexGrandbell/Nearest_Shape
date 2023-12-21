@@ -12,6 +12,4 @@ class TriangleManagement {
 };
 
 
-
-
 #endif //NEAREST_SHAPE_TRIANGLEMANAGEMENT_H
