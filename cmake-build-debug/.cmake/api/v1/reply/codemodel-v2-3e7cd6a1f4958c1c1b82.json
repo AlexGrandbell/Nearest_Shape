@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.27"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Nearest_Shape",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Nearest_Shape::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Nearest_Shape-Debug-c0da1d9dcb15df70c694.json",
+					"name" : "Nearest_Shape",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/shenjiarui/Documents/\u6211\u7684\u6587\u6863/\u6b66\u6c49\u7406\u5de5\u5927\u5b66/\u6b63\u5728\u5b66/\u8ba1\u7b97\u673a\u601d\u7ef4\u4e0e\u7b97\u6cd5\u8bbe\u8ba1/\u5927\u62a5\u544a/\u7ea7\u522b4_\u5408\u5e76/Nearest_Shape/cmake-build-debug",
+		"source" : "/Users/shenjiarui/Documents/\u6211\u7684\u6587\u6863/\u6b66\u6c49\u7406\u5de5\u5927\u5b66/\u6b63\u5728\u5b66/\u8ba1\u7b97\u673a\u601d\u7ef4\u4e0e\u7b97\u6cd5\u8bbe\u8ba1/\u5927\u62a5\u544a/\u7ea7\u522b4_\u5408\u5e76/Nearest_Shape"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}
