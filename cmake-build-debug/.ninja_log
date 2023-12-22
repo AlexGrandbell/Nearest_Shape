@@ -1,0 +1,12 @@
+# ninja log v5
+1	60	1703259740662551419	build.ninja	321c4a75fa1f9f37
+2	1068	1703176114052936276	CMakeFiles/Nearest_Shape.dir/Triangle/Triangle.cpp.o	94c31ff6a024f131
+2	1100	1703176114085137197	CMakeFiles/Nearest_Shape.dir/Tool/Tool.cpp.o	f3f3e6f563da908f
+1	1049	1703176114031708636	CMakeFiles/Nearest_Shape.dir/LineSegment/LineSegment.cpp.o	614087f9ec08c336
+3	458	1703176336917223680	CMakeFiles/Nearest_Shape.dir/main.cpp.o	2ac1b57acab5799a
+2	506	1703177509840232503	CMakeFiles/Nearest_Shape.dir/Management/Management.cpp.o	41460bcb7509c8b9
+3	731	1703176715450107262	CMakeFiles/Nearest_Shape.dir/Point/Point.cpp.o	9589250635854c59
+2	763	1703177803579171242	CMakeFiles/Nearest_Shape.dir/Point/PointManagement.cpp.o	b4bf555beefe429d
+1025	1447	1703176114433557583	CMakeFiles/Nearest_Shape.dir/Triangle/TriangleManagement.cpp.o	946ffd3b70107825
+3	459	1703176336919117825	CMakeFiles/Nearest_Shape.dir/LineSegment/LineSegementManagement.cpp.o	ba33368c5ced596e
+763	871	1703177803689406905	Nearest_Shape	b8e6974a094ce2d4
