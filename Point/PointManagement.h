@@ -24,38 +24,38 @@ public:
     void DividePoint();
     //自己的算法查找最近点对
     void MyPointAlgorithm();
-    //暴力算法
+    //枚举算法
     void BruteForcePoint();
 
     ////输出方法
-    //输出到文件，需要输入文件名
+    //输出到文件
     void OutputPointsToFile();
     //输出到屏幕
     void OutputPointsToScreen();
 
     ////更新数据方法
-    //再次随机生成n个
+    //再次随机生成
     void AutoUpdatePoints();
-    //自己输入n个
+    //自己输入
     void InputUpdatePoints();
 
 private:
     //////比较算法
     ////分治法方法
     //主分治法
-    pair<Point, Point> divideAndConquerPoints(const vector<Point>& points)const;
+    pair<Point, Point> divideClosestPairPoints(const vector<Point>& tempPoints)const;
     //中心区域查找
-    pair<Point, Point> divideAndConquerStripPoints(const vector<Point>& points)const;
+    pair<Point, Point> divideClosestPairStripPoints(const vector<Point>& tempPoints)const;
 
     ////自己想出来的算法，O(n)时间复杂度！
-    pair<Point, Point> narrowingDownPoints(const vector<Point>& points)const;
+    pair<Point, Point> narrowingDownClosestPairPoints(const vector<Point>& tempPoints)const;
 
-    ////纯暴力算法
-    pair<Point, Point> bruteForceClosestPairPoints(const vector<Point>& points)const;
+    ////纯枚举算法
+    pair<Point, Point> bruteForceClosestPairPoints(const vector<Point>& tempPoints)const;
 
     //////小工具
     //输入n
-    int inputN();
+    int inputPointN();
     //比较点是否存在
     bool isPointExistIn(const Point& p,const vector<Point>& ps)const;
 };

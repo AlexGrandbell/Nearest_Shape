@@ -12,7 +12,7 @@ PointManagement::PointManagement():points(),startTime(0),endTime(0){}
 void PointManagement::DividePoint(){
     cout<<"开始使用分治法查找最近点对..."<<endl;
     startTime = clock();
-    pair<Point, Point> closestPointPairResult = divideAndConquerPoints(points);
+    pair<Point, Point> closestPointPairResult = divideClosestPairPoints(points);
     endTime = clock();
     printf("分治法结束，运行时间%f秒",((double)(endTime - startTime)) / CLOCKS_PER_SEC);
     cout<<"点对结果为:("<<closestPointPairResult.first<<")和("<<closestPointPairResult.second<<")"<<endl;
@@ -22,7 +22,7 @@ void PointManagement::DividePoint(){
 void PointManagement::MyPointAlgorithm(){
     cout<<"开始使用自己优化的算法查找最近点对..."<<endl;
     startTime = clock();
-    pair<Point, Point> closestPointPairResult = narrowingDownPoints(points);
+    pair<Point, Point> closestPointPairResult = narrowingDownClosestPairPoints(points);
     endTime = clock();
     printf("算法结束，运行时间%f秒",((double)(endTime - startTime)) / CLOCKS_PER_SEC);
     cout<<"点对结果为:("<<closestPointPairResult.first<<")和("<<closestPointPairResult.second<<")"<<endl;
@@ -40,7 +40,7 @@ void PointManagement::BruteForcePoint(){
 }
 
 ////输出方法
-//输出到文件，需要输入文件名
+//输出到文件
 void PointManagement::OutputPointsToFile(){
     cout<<"请输入文件名:";
     string fileName = inputString();
@@ -76,15 +76,16 @@ void PointManagement::OutputPointsToScreen() {
 ////更新数据方法
 //再次随机生成n个
 void PointManagement::AutoUpdatePoints() {
-    int n = inputN();
+    int n = inputPointN();
+    cout<<"是否需要不重复数据(0-否,1-是):";
+    bool canSamePoints = (inputInt() == 0);
     //创建临时变量，确保完成前原有数据不被更改
     vector<Point> tempPoints;
     for (int i = 0; i < n; ++i) {
         Point tempPoint;
-        //由于点相等可能性较小，为了生成性能这里注释了检查。您也可以考虑启用
-//        while (isPointExistIn(tempPoint, tempPoints)) {
-//            tempPoint = Point();
-//        }
+        while (canSamePoints && isPointExistIn(tempPoint, tempPoints)) {
+            tempPoint = Point();
+        }
         tempPoints.push_back(tempPoint);
         if (n>=10000) progressBar(i,n);//展示进度
     }
@@ -108,7 +109,7 @@ void PointManagement::AutoUpdatePoints() {
 }
 //自己输入n个
 void PointManagement::InputUpdatePoints(){
-    int n = inputN();
+    int n = inputPointN();
     //创建临时变量，确保完成前原有数据不被更改
     vector<Point> tempPoints;
     cout<<"是否展示输入提示(0-否,1-是):";
@@ -126,7 +127,7 @@ void PointManagement::InputUpdatePoints(){
 //////比较算法
 ////分治法方法
 //主分治法
-pair<Point, Point> PointManagement::divideAndConquerPoints(const vector<Point>& tempPoints)const {
+pair<Point, Point> PointManagement::divideClosestPairPoints(const vector<Point>& tempPoints)const {
     int size = tempPoints.size();
     //递归到规模小于等于3的时候直接使用枚举算法解决
     if (size <= 3) {
@@ -136,9 +137,9 @@ pair<Point, Point> PointManagement::divideAndConquerPoints(const vector<Point>& 
     int mid = size / 2;
     vector<Point> tempLeftPoints(tempPoints.begin(), tempPoints.begin() + mid);
     vector<Point> tempRightPoints(tempPoints.begin() + mid, tempPoints.end());
-    pair<Point, Point> leftClosestPointPair = divideAndConquerStripPoints(tempLeftPoints);
-    pair<Point, Point> rightClosesPointtPair = divideAndConquerStripPoints(tempRightPoints);
-    double delta = min(pointsDistance(leftClosestPointPair.first, leftClosestPointPair.second),pointsDistance(rightClosesPointtPair.first, rightClosesPointtPair.second));
+    pair<Point, Point> leftClosestPointPair = divideClosestPairStripPoints(tempLeftPoints);
+    pair<Point, Point> rightClosesPointPair = divideClosestPairStripPoints(tempRightPoints);
+    double delta = min(pointsDistance(leftClosestPointPair.first, leftClosestPointPair.second),pointsDistance(rightClosesPointPair.first, rightClosesPointPair.second));
     //再计算中线附近垂直带状区域
     vector<Point> strip;
     for (const Point &p: tempPoints) {
@@ -149,15 +150,15 @@ pair<Point, Point> PointManagement::divideAndConquerPoints(const vector<Point>& 
     //根据y排列
     sort(strip.begin(), strip.end(), comparePointY);
     try {
-        pair<Point, Point> stripClosestPointsPair = divideAndConquerStripPoints(strip);
+        pair<Point, Point> stripClosestPointsPair = divideClosestPairStripPoints(strip);
         if (pointsDistance(stripClosestPointsPair.first, stripClosestPointsPair.second) < delta) {
             return stripClosestPointsPair;
         }
     }catch (exception e){}
-    return (pointsDistance(leftClosestPointPair.first, leftClosestPointPair.second) < pointsDistance(rightClosesPointtPair.first, rightClosesPointtPair.second)) ? leftClosestPointPair : rightClosesPointtPair;
+    return (pointsDistance(leftClosestPointPair.first, leftClosestPointPair.second) < pointsDistance(rightClosesPointPair.first, rightClosesPointPair.second)) ? leftClosestPointPair : rightClosesPointPair;
 }
 //中心区域查找
-pair<Point, Point> PointManagement::divideAndConquerStripPoints(const vector<Point>& tempPoints)const{
+pair<Point, Point> PointManagement::divideClosestPairStripPoints(const vector<Point>& tempPoints)const{
     int size = tempPoints.size();
     if (size<=1){
         throw myExpection("只有一个点");
@@ -176,7 +177,7 @@ pair<Point, Point> PointManagement::divideAndConquerStripPoints(const vector<Poi
     return closestPointPair;
 }
 ////对枚举算法进行优化，即可得到时间复杂度为O(n)的算法!
-pair<Point, Point> PointManagement::narrowingDownPoints(const vector<Point>& tempPoints)const{
+pair<Point, Point> PointManagement::narrowingDownClosestPairPoints(const vector<Point>& tempPoints)const{
     int size = tempPoints.size();
     double minDistance = numeric_limits<double>::infinity();
     pair<Point, Point> closestPointPair;
@@ -216,7 +217,7 @@ pair<Point, Point> PointManagement::bruteForceClosestPairPoints(const vector<Poi
 
 //////小工具
 //输入n
-int PointManagement::inputN(){
+int PointManagement::inputPointN(){
     cout<<"请输入点的个数:";
     int n=inputInt();
     while (n<=1){
