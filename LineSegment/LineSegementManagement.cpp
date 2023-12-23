@@ -43,10 +43,8 @@ void LineSegementManagement::OutputLineSegmentsToFile() {
         random_device rd;
         mt19937 gen(rd());
         shuffle(tempLineSegments.begin(), tempLineSegments.end(), gen);
-
         if (outFile.is_open()) {
             for (LineSegment l: tempLineSegments) {
-
                 outFile <<setprecision(25)<< l << endl;
             }
             outFile.close();

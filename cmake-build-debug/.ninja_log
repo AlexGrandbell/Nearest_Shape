@@ -48,3 +48,11 @@
 3	594	1703307012960215222	CMakeFiles/Nearest_Shape.dir/LineSegment/LineSegementManagement.cpp.o	ba33368c5ced596e
 2	600	1703307012967547107	CMakeFiles/Nearest_Shape.dir/Point/PointManagement.cpp.o	b4bf555beefe429d
 600	639	1703307013008022350	Nearest_Shape	b8e6974a094ce2d4
+2	733	1703309496315420353	CMakeFiles/Nearest_Shape.dir/main.cpp.o	2ac1b57acab5799a
+2	733	1703309496317978979	CMakeFiles/Nearest_Shape.dir/Management/Management.cpp.o	41460bcb7509c8b9
+2	734	1703309496319341687	CMakeFiles/Nearest_Shape.dir/Triangle/Triangle.cpp.o	94c31ff6a024f131
+3	786	1703309496371172280	CMakeFiles/Nearest_Shape.dir/Triangle/TriangleManagement.cpp.o	946ffd3b70107825
+2	787	1703309496371127197	CMakeFiles/Nearest_Shape.dir/LineSegment/LineSegementManagement.cpp.o	ba33368c5ced596e
+787	889	1703309496475165882	Nearest_Shape	b8e6974a094ce2d4
+2	541	1703309575000071407	CMakeFiles/Nearest_Shape.dir/Triangle/TriangleManagement.cpp.o	946ffd3b70107825
+541	582	1703309575042751198	Nearest_Shape	b8e6974a094ce2d4

@@ -10,6 +10,16 @@ Triangle::Triangle():A(),B(),C(){
     while (A==B || B==C || C==A || isPointOnSegment(A,B,C) || isPointOnSegment(A,C,B) || isPointOnSegment(B,C,A)) C = Point();
     makeSides();
 }
+//随机在l范围的正方形区域生成
+Triangle::Triangle(double l):A(l),B(l),C(l){
+    while (A==B || B==C || C==A || isPointOnSegment(A,B,C) || isPointOnSegment(A,C,B) || isPointOnSegment(B,C,A)) C = Point(l);
+    makeSides();
+}
+//在输入的范围区域生成
+Triangle::Triangle(double xl,double xr,double yd,double yu): A(xl,xr,yd,yu),B(xl,xr,yd,yu),C(xl,xr,yd,yu){
+    while (A==B || B==C || C==A || isPointOnSegment(A,B,C) || isPointOnSegment(A,C,B) || isPointOnSegment(B,C,A)) C = Point(xl,xr,yd,yu);
+    makeSides();
+}
 //传入三个顶点的六个值来生成三角形
 Triangle::Triangle(double x1,double y1,double x2,double y2,double x3,double y3):A(x1,y1),B(x2,y2),C(x3,y3){
     if (A==B || B==C || C==A || isPointOnSegment(A,B,C) || isPointOnSegment(A,C,B) || isPointOnSegment(B,C,A)) throw exception();

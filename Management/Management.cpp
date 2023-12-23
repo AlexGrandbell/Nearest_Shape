@@ -281,6 +281,7 @@ void Management::closestPointPairMenu(){
     cout<<"2.优化的算法(O(n))"<<endl;
     cout<<"3.枚举法(O(n^2))"<<endl;
     cout<<"4.都来一遍"<<endl;
+    cout<<" -----------------------"<<endl;
     cout<<"请选择:";
     try {
         switch (inputInt()) {
@@ -368,6 +369,7 @@ void Management::closestLineSegmentPairMenu(){
     cout<<"1.优化的算法(O(n))"<<endl;
     cout<<"2.枚举法(O(n^2))"<<endl;
     cout<<"3.都来一遍"<<endl;
+    cout<<" -----------------------"<<endl;
     cout<<"请选择:";
     try {
         switch (inputInt()) {
@@ -398,8 +400,86 @@ void Management::closestLineSegmentPairMenu(){
 
 ////三角形二级菜单
 //输入三角形集
-void Management::inputTrianglesMenu(){}
+void Management::inputTrianglesMenu(){
+    cout<<"\n请选择输入三角形集的方法(0-自动输入,1-规律输入,2-手动输入):";
+    try {
+        switch (inputInt()) {
+            case 0: {
+                triangleManagement.AutoUpdateTriangles();
+                break;
+            }
+            case 1: {
+                triangleManagement.RegularlyUpdateTriangles();
+                break;
+            }
+            case 2: {
+                triangleManagement.InputUpdateTriangles();
+                break;
+            }
+            default: {
+                cout<<"您输入的序号错误。";
+                return;
+            }
+        }
+    } catch (const exception &e) {
+        cout << e.what() << endl;
+    }
+    return;
+}
 //输出三角形集
-void Management::outputTrianglesMenu() {}
+void Management::outputTrianglesMenu() {
+    cout<<"\n请选择输出三角形集的方法(0-输出到文件,1-输出到控制台):";
+    try {
+        switch (inputInt()) {
+            case 0: {
+                triangleManagement.OutputTrianglesToFile();
+                break;
+            }
+            case 1: {
+                triangleManagement.OutputTrianglesToScreen();
+                break;
+            }
+            default: {
+                cout<<"您输入的序号错误。";
+                return;
+            }
+        }
+    } catch (const exception &e) {
+        cout << e.what() << endl;
+    }
+    return;
+}
 //最近三角形对
-void Management::closestTrianglePairMenu(){}
+void Management::closestTrianglePairMenu(){
+    cout<<"\n查找最近线段对的算法有\n";
+    cout<<"1.优化的算法(O(n))"<<endl;
+    cout<<"2.枚举法(O(n^2))"<<endl;
+    cout<<"3.都来一遍"<<endl;
+    cout<<" -----------------------"<<endl;
+    cout<<"请选择:";
+    try {
+        switch (inputInt()) {
+            case 1: {
+                triangleManagement.MyTriangleAlgorithm();
+                break;
+            }
+            case 2: {
+                triangleManagement.BruteForceTriangle();
+                break;
+            }
+            case 3:{
+                triangleManagement.MyTriangleAlgorithm();
+                cout<<endl;
+                triangleManagement.BruteForceTriangle();
+                break;
+            }
+            default: {
+                cout<<"您输入的序号错误。";
+                return;
+            }
+        }
+    } catch (const exception &e) {
+        cout << e.what() << endl;
+    }
+    return;
+}

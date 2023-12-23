@@ -15,6 +15,10 @@ struct Triangle {
     ////构造函数
     //随机生成三个顶点以生成三角形
     Triangle();
+    //随机在l范围的正方形区域生成
+    Triangle(double);
+    //在输入的范围区域生成
+    Triangle(double xl,double xr,double yd,double yu);
     //传入三个顶点的六个值来生成三角形
     Triangle(double ,double ,double ,double ,double ,double );
     //传入三个顶点来生成三角形
@@ -45,7 +49,7 @@ bool operator>(const Triangle& tl,const Triangle& tr);
 bool operator<(const Triangle& tl,const Triangle& tr);
 //判断三角形是否有边相交
 bool isTriangleIntersect(const Triangle& tl,const Triangle& tr);
-//判断三角形是否重叠
+//判断三角形是否重叠（用这个判断最终重叠）
 bool isTriangleOverlap(const Triangle& tl, const Triangle& tr);
 //用于传入sort进行左端比较排序
 bool compareTriangleLeftX(const Triangle& tl, const Triangle& tr);
