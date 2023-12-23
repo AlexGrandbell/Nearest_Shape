@@ -12,8 +12,10 @@ struct LineSegment {
     Point start,end;
 
     ////构造函数
-    //随机生成两个端点以构造线段
+    //随机生成0-100范围内的两个端点以构造线段
     LineSegment();
+    //随机生成l正方形范围内的两个端点以构造线段
+    LineSegment(double);
     //手动输入两个点的坐标
     LineSegment(double,double,double,double);
     //传入两个点作为两个端点

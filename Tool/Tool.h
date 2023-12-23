@@ -23,7 +23,6 @@ using namespace std;
 class myExpection:public exception{
 public:
     myExpection(const char* message):errorMessage(message){}
-
     const char * what() const noexcept override{
         return errorMessage.c_str();
     }
@@ -31,6 +30,7 @@ private:
     string errorMessage;
 };
 
+//工具
 double inputDouble();
 int inputInt();
 string inputString();

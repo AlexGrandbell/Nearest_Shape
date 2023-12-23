@@ -57,7 +57,7 @@ private:
     //输入n
     int inputPointN();
     //比较点是否存在
-    bool isPointExistIn(const Point& p,const vector<Point>& ps)const;
+    bool isPointExistIn(const Point& newTempPoint,const vector<Point>& tempPoints)const;
 };
 
 #endif //NEAREST_SHAPE_POINTMANAGEMENT_H

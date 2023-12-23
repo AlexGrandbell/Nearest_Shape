@@ -42,14 +42,19 @@ void PointManagement::BruteForcePoint(){
 ////输出方法
 //输出到文件
 void PointManagement::OutputPointsToFile(){
-    cout<<"请输入文件名:";
-    string fileName = inputString();
+    cout<<"请输入文件名(无需加.txt):";
+    string fileName = inputString() + ".txt";
     cout<<"开始覆盖点集数据到文件\""<<fileName<<"\""<<endl;
     ofstream outFile(fileName);
     if (points.size()>0) {
+        vector<Point> tempPoints = points;
+        //打乱
+        random_device rd;
+        mt19937 gen(rd());
+        shuffle(tempPoints.begin(),tempPoints.end(),gen);
         if (outFile.is_open()) {
-            for (Point p: points) {
-                outFile << p << endl;
+            for (Point p: tempPoints) {
+                outFile <<setprecision(25)<< p << endl;
             }
             outFile.close();
             cout << "数据已保存到文件\"" << fileName << "\"" << endl;
@@ -63,11 +68,16 @@ void PointManagement::OutputPointsToFile(){
 //输出到屏幕
 void PointManagement::OutputPointsToScreen() {
     cout << "开始输出点集数据" << endl;
-    if (points.size() > 0) {
-        for (Point p: points) {
-            cout << p << endl;
+    vector<Point> tempPoints = points;
+    //打乱
+    random_device rd;
+    mt19937 gen(rd());
+    shuffle(tempPoints.begin(),tempPoints.end(),gen);
+    if (tempPoints.size() > 0) {
+        for (Point p: tempPoints) {
+            cout <<setprecision(25)<< p << endl;
         }
-        cout << "点集数据输出完成，共" << points.size() << "个点" << endl;
+        cout << "点集数据输出完成，共" << tempPoints.size() << "个点" << endl;
     } else {
         cout << "没有数据，无需输出" << endl;
     }
@@ -78,30 +88,16 @@ void PointManagement::OutputPointsToScreen() {
 void PointManagement::AutoUpdatePoints() {
     int n = inputPointN();
     cout<<"是否需要不重复数据(0-否,1-是):";
-    bool canSamePoints = (inputInt() == 0);
+    bool canSamePoints = (inputInt() == 1);
     //创建临时变量，确保完成前原有数据不被更改
     vector<Point> tempPoints;
+    Point tempPoint;
     for (int i = 0; i < n; ++i) {
-        Point tempPoint;
-        while (canSamePoints && isPointExistIn(tempPoint, tempPoints)) {
-            tempPoint = Point();
-        }
+        do {
+            tempPoint = Point(n/10);
+        }while (canSamePoints && isPointExistIn(tempPoint, tempPoints));
         tempPoints.push_back(tempPoint);
         if (n>=10000) progressBar(i,n);//展示进度
-    }
-    cout << "是否要要将生成的数据保存到文件\"" << n << "个点数据\"?(0-否,1-是):";
-    if (inputInt() == 1) {
-        string fileName = to_string(n) + "个点数据.txt";
-        ofstream outFile(fileName);
-        if (outFile.is_open()) {
-            for (Point p: tempPoints) {
-                outFile << p << endl;
-            }
-            outFile.close();
-            cout << "数据已保存到文件\"" << n << "点个数据.txt\"" << endl;
-        } else {
-            cout << "无法打开文件进行输出，文件输出失败，程序继续" << endl;
-        }
     }
     points = tempPoints;
     sort(points.begin(),points.end(), comparePointX);//重要排序，不能删除
@@ -115,8 +111,10 @@ void PointManagement::InputUpdatePoints(){
     cout<<"是否展示输入提示(0-否,1-是):";
     int c = inputInt();
     for (int i = 0; i < n; ++i) {
-        if (c == 1) cout<<"请输入第"<<i+1<<"个点点坐标(x y):";
-        tempPoints.push_back(Point(inputDouble(),inputDouble()));
+        if (c == 1) cout<<"请输入第"<<i+1<<"个点的坐标(x y):";
+        double x,y;
+        cin>>x>>y;
+        tempPoints.push_back(Point(x,y));
     }
     points = tempPoints;
     sort(points.begin(),points.end(), comparePointX);//重要排序，不能删除
@@ -161,7 +159,7 @@ pair<Point, Point> PointManagement::divideClosestPairPoints(const vector<Point>&
 pair<Point, Point> PointManagement::divideClosestPairStripPoints(const vector<Point>& tempPoints)const{
     int size = tempPoints.size();
     if (size<=1){
-        throw myExpection("只有一个点");
+        throw myExpection("点数量太少");
     }
     double minDistance = numeric_limits<double>::infinity();
     pair<Point, Point> closestPointPair;
@@ -179,11 +177,14 @@ pair<Point, Point> PointManagement::divideClosestPairStripPoints(const vector<Po
 ////对枚举算法进行优化，即可得到时间复杂度为O(n)的算法!
 pair<Point, Point> PointManagement::narrowingDownClosestPairPoints(const vector<Point>& tempPoints)const{
     int size = tempPoints.size();
+    if (size<=1){
+        throw myExpection("点数量太少");
+    }
     double minDistance = numeric_limits<double>::infinity();
     pair<Point, Point> closestPointPair;
     for (int i = 0; i < size; ++i) {
         for (int j = i + 1; j < size; ++j) {
-            if ((points[j].x-points[i].x)>minDistance){//若右边超过了，则直接终止此轮程序
+            if ((points[j].x-points[i].x)>minDistance){//若右边超过了，说明接下来的点都不可能更近了，则直接终止此轮程序
                 break;
             } else if (fabs(points[i].y-points[j].y)>minDistance){//若竖直方向超出，则直接排除
                 continue;
@@ -193,6 +194,7 @@ pair<Point, Point> PointManagement::narrowingDownClosestPairPoints(const vector<
                     minDistance = distance;
                     closestPointPair = make_pair(points[i], points[j]);
                 }
+                if (minDistance == 0) return closestPointPair;
             }
         }
     }
@@ -210,6 +212,7 @@ pair<Point, Point> PointManagement::bruteForceClosestPairPoints(const vector<Poi
                 minDistance = distance;
                 closestPointPair = make_pair(points[i], points[j]);
             }
+            if (minDistance == 0) return closestPointPair;
         }
     }
     return closestPointPair;
@@ -228,9 +231,9 @@ int PointManagement::inputPointN(){
     return n;
 }
 //比较点是否存在与点集中
-bool PointManagement::isPointExistIn(const Point& point,const vector<Point>& tempPoints) const{
-    for (Point p:tempPoints) {
-        if (p == point) {
+bool PointManagement::isPointExistIn(const Point& newTempPoint,const vector<Point>& tempPoints) const{
+    for (Point tempPoint:tempPoints) {
+        if (tempPoint == newTempPoint) {
             return true;
         }
     }

@@ -34,8 +34,6 @@ public:
     ////更新数据方法
     //再次随机生成n个
     void AutoUpdateLineSegments();
-    //有规律的生成
-    void RegularlyUpdateLineSegments();
     //自己输入
     void InputUpdateLineSegments();
 

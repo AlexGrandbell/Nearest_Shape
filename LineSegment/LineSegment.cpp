@@ -8,6 +8,10 @@
 LineSegment::LineSegment():start(),end() {
     while (start == end) end = Point();
 }
+//随机生成l正方形范围内的两个端点以构造线段
+LineSegment::LineSegment(double l):start(l),end(l){
+    while (start == end) end = Point(l);
+}
 //手动输入两个点的坐标
 LineSegment::LineSegment(double x1,double y1,double x2,double y2):start(x1,y1),end(x2,y2){
     while (start == end) end = Point();

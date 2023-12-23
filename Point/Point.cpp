@@ -21,7 +21,6 @@ bool comparePointX(const Point& pl, const Point& pr) {
 bool comparePointY(const Point& pl, const Point& pr) {
     return pl.y < pr.y;
 }
-
 //点之间距离计算
 double pointsDistance(const Point& pl, const Point& pr) {
     return hypot(pl.x - pr.x, pl.y - pr.y);

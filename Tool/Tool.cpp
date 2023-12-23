@@ -106,10 +106,11 @@ void progressBar(int i,int num){
         cout.flush();
     }
 }
+//随机数构建器
+random_device rd;
+mt19937 gen(rd());
 
 double randomDouble(double low,double high){
-    random_device rd;
-    mt19937 gen(rd());
     uniform_real_distribution<double> dis(low, high);
     return dis(gen);
 }
