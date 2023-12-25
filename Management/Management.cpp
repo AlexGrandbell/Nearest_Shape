@@ -6,11 +6,12 @@
 
 //用户界面
 void Management::Welcome(){
-    cout << "\n欢迎使用" << endl;
+    cout << "    欢迎使用最短距离搜索系统" << endl;
     cout<<"你可以随时输入'q'来退出某个当前操作。"<<endl;
-    cout<<"----------任意输入以开始----------"<<endl;
+    cout<<"--------任意输入以开始----------"<<endl;
     inputString();
 }
+
 void Management::DoMenu(){
     int nSelection = -1;
     do {
