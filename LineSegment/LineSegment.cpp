@@ -66,7 +66,7 @@ int orientation(const Point& p, const Point& q, const Point& r) {
     if (fabs(val) < 1e-6) return 0; // 共线
     return (val > 0) ? 1 : 2; // 1逆时针2顺时针
 }
-//根据两边之和等于第三点判断点r是否在线段pq上
+//根据两边之和是否等于线段长度判断点r是否在线段pq上
 bool isPointOnSegment(const Point& p, const Point& q, const Point& r) {
     if (fabs(pointsDistance(p,q)-(pointsDistance(p,r)+ pointsDistance(q,r)))<1e-6){
         return true;
