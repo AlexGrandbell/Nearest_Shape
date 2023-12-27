@@ -9,6 +9,15 @@
 TriangleManagement::TriangleManagement():triangles(),startTime(0),endTime(0){}
 
 ////展示方法
+void TriangleManagement::DivideTriangle(){
+    cout<<"开始使用分治法查找最近三角形对..."<<endl;
+    startTime = clock();
+    pair<Triangle, Triangle> closestTrianglePairResult = divideClosestPairTriangles(triangles);
+    endTime = clock();
+    printf("分治算法结束，运行时间%f秒",((double)(endTime - startTime)) / CLOCKS_PER_SEC);
+    cout<<"三角形对结果为:("<<closestTrianglePairResult.first<<")和("<<closestTrianglePairResult.second<<")"<<endl;
+    cout<<"距离为:"<<trianglesDistance(closestTrianglePairResult.first,closestTrianglePairResult.second)<<endl;
+}
 //自己的算法查找最近三角形对
 void TriangleManagement::MyTriangleAlgorithm(){
     cout<<"开始使用自己优化的算法查找最近三角形对..."<<endl;
@@ -99,17 +108,21 @@ void TriangleManagement::RegularlyUpdateTriangles(){
     int n = inputTriangleN();
     //创建临时变量，确保完成前原有数据不被更改
     vector<Triangle> tempTriangles1;
-    n = n/400 + 1;
-    cout<<"受限于生成方式，将产生"<<n<<"*400="<<n*400<<"个不重叠的三角形数据"<<endl;
-    for (int i = 0; i < 20; ++i) {
-        for (int j = 0; j < 20; ++j) {
+    int numOfBlock = n/10;
+    numOfBlock = (int)sqrt(numOfBlock);
+    double low = -100* numOfBlock;
+    double high = -low;
+    n=numOfBlock*numOfBlock*10;
+    cout<<"受限于生成方式，将产生"<<n<<"个不重叠的三角形数据"<<endl;
+    for (int i = 0; i < numOfBlock; ++i) {
+        for (int j = 0; j < numOfBlock; ++j) {
             vector<Triangle> tempTriangles;
             Triangle tempTriangle;
-            double xl = -1000 + 100 * i;
+            double xl = low + 100 * i;
             double xr = xl + 100;
-            double yu = 1000 - 100 * j;
+            double yu = high - 100 * j;
             double yd = yu - 100;
-            for (int k = 0; k < n; ++k) {
+            for (int k = 0; k < 10; ++k) {
                 do {
                     tempTriangle = Triangle(xl, xr, yd, yu);
                 } while (isTriangleOverlapOn(tempTriangle, tempTriangles));
@@ -119,11 +132,11 @@ void TriangleManagement::RegularlyUpdateTriangles(){
                 tempTriangles1.push_back(t);
             }
         }
-        progressBar(i,20);
+        progressBar(i,numOfBlock);
     }
     triangles= tempTriangles1;
     sort(triangles.begin(),triangles.end(), compareTriangleLeftX);//重要排序，不能删除
-    cout<< n*400 <<"个三角形数据生成完成"<<endl;
+    cout<< n <<"个三角形数据生成完成"<<endl;
 }
 //自己输入
 void TriangleManagement::InputUpdateTriangles(){
@@ -156,7 +169,8 @@ pair<Triangle, Triangle> TriangleManagement::narrowingDownClosestPairTriangles(c
         for (int j = i + 1; j < size; ++j) {
             if ((triangles[j].left()-triangles[i].right())>minDistance){//若右边超过了，说明接下来的三角形都不可能更近了，则直接终止此轮程序
                 break;
-            } else if (!(((triangles[j].down() - triangles[i].up()) >= minDistance) || ((triangles[i].down() - triangles[j].up()) >= minDistance))) {//若竖直方向超出，则直接排除，减少计算
+            } else if (!(((triangles[j].down() - triangles[i].up()) >= minDistance) || ((triangles[i].down() - triangles[j].up()) >= minDistance))) {
+                //若竖直方向超出，则直接排除，减少计算
                 double distance = trianglesDistance(triangles[i], triangles[j]);
                 if (distance < minDistance) {
                     minDistance = distance;
@@ -167,6 +181,74 @@ pair<Triangle, Triangle> TriangleManagement::narrowingDownClosestPairTriangles(c
         }
     }
     return closestTrianglePair;
+}
+//中心区域查找
+pair<Triangle, Triangle> TriangleManagement::divideClosestPairStripTriangles(const vector<Triangle>& tempTriangles)const{
+    int size = tempTriangles.size();
+    if (size <= 1){
+        throw myExpection("三角形太少");
+    }
+    double minDistance = numeric_limits<double>::infinity();
+    pair<Triangle, Triangle> closestTrianglePair;
+    for (int i = 0; i < size; ++i) {
+        for (int j = i + 1; j < size; ++j) {
+            if ((tempTriangles[j].down()-tempTriangles[i].up())>minDistance){//若竖直方向超出，则直接排除，减少计算
+                break;
+            } else {
+                double distance = trianglesDistance(tempTriangles[i], tempTriangles[j]);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestTrianglePair = make_pair(tempTriangles[i], tempTriangles[j]);
+                }
+                if (minDistance == 0) return closestTrianglePair;
+            }
+        }
+    }
+    return closestTrianglePair;
+}
+//主分治算法
+pair<Triangle,Triangle> TriangleManagement::divideClosestPairTriangles(const vector<Triangle>& tempTriangles)const{
+    int size = tempTriangles.size();
+    //递归到规模小于等于3的时候直接使用枚举算法解决
+    if (size <= 3) {
+        return bruteForceClosestPairTriangles(tempTriangles);
+    }
+    //先分为左右两部分，计算出两部分的最小值
+    int mid = size / 2;
+    double midX = tempTriangles[mid].left();
+    vector<Triangle> tempLeftTriangles;
+    vector<Triangle> tempRightTriangles;
+    for (int i = 0; i < size; ++i) {
+        if (tempTriangles[i].left()<=midX){
+            tempLeftTriangles.push_back(tempTriangles[i]);
+        }
+        if (tempTriangles[i].right()>=midX){
+            tempRightTriangles.push_back(tempTriangles[i]);
+        }
+    }
+    if (tempLeftTriangles.size() == size || tempRightTriangles.size()==size){
+        return divideClosestPairStripTriangles(tempTriangles);
+    }
+    pair<Triangle, Triangle> leftClosestTrianglePair = divideClosestPairStripTriangles(tempLeftTriangles);
+    pair<Triangle, Triangle> rightClosesTrianglePair = divideClosestPairStripTriangles(tempRightTriangles);
+    double delta = min(trianglesDistance(leftClosestTrianglePair.first, leftClosestTrianglePair.second),trianglesDistance(rightClosesTrianglePair.first, rightClosesTrianglePair.second));
+    //再计算中线附近垂直带状区域
+    vector<Triangle> strip;
+    for (const Triangle &t: tempTriangles) {
+        if (!(t.left()-midX>delta || midX-t.right()>delta)) {
+            strip.push_back(t);
+        }
+    }
+    //根据y排列
+    sort(strip.begin(), strip.end(), compareTriangleBottomY);
+    try {
+        pair<Triangle, Triangle> stripClosestTrianglesPair = divideClosestPairStripTriangles(strip);
+//        pair<Triangle, Triangle> stripClosestTrianglesPair = bruteForceClosestPairTriangles(strip);
+        if (trianglesDistance(stripClosestTrianglesPair.first, stripClosestTrianglesPair.second) < delta) {
+            return stripClosestTrianglesPair;
+        }
+    }catch (exception e){}
+    return (trianglesDistance(leftClosestTrianglePair.first, leftClosestTrianglePair.second) < trianglesDistance(rightClosesTrianglePair.first, rightClosesTrianglePair.second)) ? leftClosestTrianglePair : rightClosesTrianglePair;
 }
 //枚举算法
 pair<Triangle, Triangle> TriangleManagement::bruteForceClosestPairTriangles(const vector<Triangle>& tempTriangles)const{

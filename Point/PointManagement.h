@@ -39,17 +39,15 @@ public:
     //自己输入
     void InputUpdatePoints();
 
+    //中心区域查找
+    pair<Point, Point> divideClosestPairStripPoints(const vector<Point>& tempPoints)const;
 private:
     //////比较算法
     ////分治法方法
     //主分治法
     pair<Point, Point> divideClosestPairPoints(const vector<Point>& tempPoints)const;
-    //中心区域查找
-    pair<Point, Point> divideClosestPairStripPoints(const vector<Point>& tempPoints)const;
-
-    ////自己想出来的算法，O(n)时间复杂度！
+    ////自己想出来的算法
     pair<Point, Point> narrowingDownClosestPairPoints(const vector<Point>& tempPoints)const;
-
     ////纯枚举算法
     pair<Point, Point> bruteForceClosestPairPoints(const vector<Point>& tempPoints)const;
 

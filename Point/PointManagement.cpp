@@ -174,7 +174,7 @@ pair<Point, Point> PointManagement::divideClosestPairStripPoints(const vector<Po
     }
     return closestPointPair;
 }
-////对枚举算法进行优化，即可得到时间复杂度为O(n)的算法!
+////对枚举算法进行优化
 pair<Point, Point> PointManagement::narrowingDownClosestPairPoints(const vector<Point>& tempPoints)const{
     int size = tempPoints.size();
     if (size<=1){

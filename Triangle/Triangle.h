@@ -53,6 +53,8 @@ bool isTriangleIntersect(const Triangle& tl,const Triangle& tr);
 bool isTriangleOverlap(const Triangle& tl, const Triangle& tr);
 //用于传入sort进行左端比较排序
 bool compareTriangleLeftX(const Triangle& tl, const Triangle& tr);
+//用于传入sort进行左端比较排序
+bool compareTriangleBottomY(const Triangle& tl, const Triangle& tr);
 //计算三角形之间的距离
 double trianglesDistance(const Triangle& tl,const Triangle& tr);
 

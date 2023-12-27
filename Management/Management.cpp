@@ -453,22 +453,29 @@ void Management::outputTrianglesMenu() {
 //最近三角形对
 void Management::closestTrianglePairMenu(){
     cout<<"\n查找最近线段对的算法有\n";
-    cout<<"1.优化的算法(O(n))"<<endl;
-    cout<<"2.枚举法(O(n^2))"<<endl;
-    cout<<"3.都来一遍"<<endl;
+    cout<<"1.分治法"<<endl;
+    cout<<"2.优化的算法"<<endl;
+    cout<<"3.枚举法"<<endl;
+    cout<<"4.都来一遍"<<endl;
     cout<<" -----------------------"<<endl;
     cout<<"请选择:";
     try {
         switch (inputInt()) {
             case 1: {
-                triangleManagement.MyTriangleAlgorithm();
+                triangleManagement.DivideTriangle();
                 break;
             }
             case 2: {
+                triangleManagement.MyTriangleAlgorithm();
+                break;
+            }
+            case 3: {
                 triangleManagement.BruteForceTriangle();
                 break;
             }
-            case 3:{
+            case 4:{
+                triangleManagement.DivideTriangle();
+                cout<<endl;
                 triangleManagement.MyTriangleAlgorithm();
                 cout<<endl;
                 triangleManagement.BruteForceTriangle();

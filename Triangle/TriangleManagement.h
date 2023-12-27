@@ -19,6 +19,8 @@ public:
     TriangleManagement();
 
     ////展示方法
+    //分治法查找最近点对
+    void DivideTriangle();
     //自己的算法查找最近线段对
     void MyTriangleAlgorithm();
     //枚举算法
@@ -37,11 +39,14 @@ public:
     void RegularlyUpdateTriangles();
     //自己输入
     void InputUpdateTriangles();
-    
+    //中心区域查找
+    pair<Triangle, Triangle> divideClosestPairStripTriangles(const vector<Triangle>& tempTriangles)const;
 private:
     ////比较算法
     //O(n)时间复杂度算法
     pair<Triangle, Triangle> narrowingDownClosestPairTriangles(const vector<Triangle>& tempTriangles)const;
+    //分治算法
+    pair<Triangle,Triangle>divideClosestPairTriangles(const vector<Triangle>& tempTriangles)const;
     //枚举算法
     pair<Triangle, Triangle> bruteForceClosestPairTriangles(const vector<Triangle>& tempTriangles)const;
 

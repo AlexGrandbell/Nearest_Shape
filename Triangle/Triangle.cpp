@@ -88,6 +88,10 @@ bool isTriangleOverlap(const Triangle& tl, const Triangle& tr){
 bool compareTriangleLeftX(const Triangle& tl, const Triangle& tr){
     return tl.left()<tr.left();
 }
+//用于传入sort进行左端比较排序
+bool compareTriangleBottomY(const Triangle& tl, const Triangle& tr){
+    return tl.down()<tr.down();
+}
 //计算三角形之间的距离
 double trianglesDistance(const Triangle& tl,const Triangle& tr){
     //如果重叠，返回0
