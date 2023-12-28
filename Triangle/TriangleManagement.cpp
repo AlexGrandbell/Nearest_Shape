@@ -157,7 +157,6 @@ void TriangleManagement::InputUpdateTriangles(){
 }
 
 ////比较算法
-//O(n)时间复杂度算法
 pair<Triangle, Triangle> TriangleManagement::narrowingDownClosestPairTriangles(const vector<Triangle>& tempTriangles)const{
     int size = triangles.size();
     if (size <= 1){

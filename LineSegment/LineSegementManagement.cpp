@@ -113,7 +113,7 @@ void LineSegementManagement::InputUpdateLineSegments(){
 }
 
 ////比较算法
-//O(n)时间复杂度算法
+//缩小域算法
 pair<LineSegment, LineSegment> LineSegementManagement::narrowingDownClosestPairLineSegments(const vector<LineSegment>& tempLineSegments)const{
     int size = lineSegments.size();
     if (size <= 1){

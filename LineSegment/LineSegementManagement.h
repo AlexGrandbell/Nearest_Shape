@@ -39,7 +39,7 @@ public:
 
 private:
     ////比较算法
-    //O(n)时间复杂度算法
+    //缩小域算法
     pair<LineSegment, LineSegment> narrowingDownClosestPairLineSegments(const vector<LineSegment>& tempLineSegments)const;
     //枚举算法
     pair<LineSegment, LineSegment> bruteForceClosestPairLineSegments(const vector<LineSegment>& tempLineSegments)const;

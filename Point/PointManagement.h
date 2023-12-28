@@ -46,7 +46,7 @@ private:
     ////分治法方法
     //主分治法
     pair<Point, Point> divideClosestPairPoints(const vector<Point>& tempPoints)const;
-    ////自己想出来的算法
+    ////缩小域算法
     pair<Point, Point> narrowingDownClosestPairPoints(const vector<Point>& tempPoints)const;
     ////纯枚举算法
     pair<Point, Point> bruteForceClosestPairPoints(const vector<Point>& tempPoints)const;

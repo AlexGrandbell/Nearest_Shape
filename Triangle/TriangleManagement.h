@@ -43,7 +43,7 @@ public:
     pair<Triangle, Triangle> divideClosestPairStripTriangles(const vector<Triangle>& tempTriangles)const;
 private:
     ////比较算法
-    //O(n)时间复杂度算法
+    //缩小域算法
     pair<Triangle, Triangle> narrowingDownClosestPairTriangles(const vector<Triangle>& tempTriangles)const;
     //分治算法
     pair<Triangle,Triangle>divideClosestPairTriangles(const vector<Triangle>& tempTriangles)const;
