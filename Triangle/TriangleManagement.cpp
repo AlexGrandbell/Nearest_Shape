@@ -215,22 +215,20 @@ pair<Triangle,Triangle> TriangleManagement::divideClosestPairTriangles(const vec
     //先分为左右两部分，计算出两部分的最小值
     int mid = size / 2;
     double midX = tempTriangles[mid].left();
-    vector<Triangle> tempLeftTriangles;
-    vector<Triangle> tempRightTriangles;
+    vector<Triangle> tempLeftTriangles,tempRightTriangles;
     for (int i = 0; i < size; ++i) {
-        if (tempTriangles[i].left()<=midX){
-            tempLeftTriangles.push_back(tempTriangles[i]);
-        }
-        if (tempTriangles[i].right()>=midX){
-            tempRightTriangles.push_back(tempTriangles[i]);
-        }
+        if (tempTriangles[i].left()<=midX) tempLeftTriangles.push_back(tempTriangles[i]);
+        if (tempTriangles[i].right()>=midX) tempRightTriangles.push_back(tempTriangles[i]);
     }
     if (tempLeftTriangles.size() == size || tempRightTriangles.size()==size){
         return divideClosestPairStripTriangles(tempTriangles);
     }
-    pair<Triangle, Triangle> leftClosestTrianglePair = divideClosestPairStripTriangles(tempLeftTriangles);
-    pair<Triangle, Triangle> rightClosesTrianglePair = divideClosestPairStripTriangles(tempRightTriangles);
-    double delta = min(trianglesDistance(leftClosestTrianglePair.first, leftClosestTrianglePair.second),trianglesDistance(rightClosesTrianglePair.first, rightClosesTrianglePair.second));
+    sort(tempLeftTriangles.begin(),tempLeftTriangles.end(), compareTriangleLeftX);
+    sort(tempRightTriangles.begin(),tempRightTriangles.end(), compareTriangleLeftX);
+    pair<Triangle, Triangle> leftClosestTrianglePair = divideClosestPairTriangles(tempLeftTriangles);//递归调用自己
+    pair<Triangle, Triangle> rightClosesTrianglePair = divideClosestPairTriangles(tempRightTriangles);
+    double delta = min(trianglesDistance(leftClosestTrianglePair.first, leftClosestTrianglePair.second),
+                       trianglesDistance(rightClosesTrianglePair.first, rightClosesTrianglePair.second));
     //再计算中线附近垂直带状区域
     vector<Triangle> strip;
     for (const Triangle &t: tempTriangles) {
@@ -238,16 +236,18 @@ pair<Triangle,Triangle> TriangleManagement::divideClosestPairTriangles(const vec
             strip.push_back(t);
         }
     }
-    //根据y排列
-    sort(strip.begin(), strip.end(), compareTriangleBottomY);
     try {
+        //根据y排列
+        sort(strip.begin(), strip.end(), compareTriangleBottomY);
         pair<Triangle, Triangle> stripClosestTrianglesPair = divideClosestPairStripTriangles(strip);
-//        pair<Triangle, Triangle> stripClosestTrianglesPair = bruteForceClosestPairTriangles(strip);
         if (trianglesDistance(stripClosestTrianglesPair.first, stripClosestTrianglesPair.second) < delta) {
             return stripClosestTrianglesPair;
         }
     }catch (exception e){}
-    return (trianglesDistance(leftClosestTrianglePair.first, leftClosestTrianglePair.second) < trianglesDistance(rightClosesTrianglePair.first, rightClosesTrianglePair.second)) ? leftClosestTrianglePair : rightClosesTrianglePair;
+    return (trianglesDistance(leftClosestTrianglePair.first, leftClosestTrianglePair.second) <
+    trianglesDistance(rightClosesTrianglePair.first, rightClosesTrianglePair.second)) ?
+    leftClosestTrianglePair :
+    rightClosesTrianglePair;
 }
 //枚举算法
 pair<Triangle, Triangle> TriangleManagement::bruteForceClosestPairTriangles(const vector<Triangle>& tempTriangles)const{

@@ -34,3 +34,9 @@
 543	578	1703659512857330695	Nearest_Shape	b8e6974a094ce2d4
 2	737	1703659901102240715	CMakeFiles/Nearest_Shape.dir/Triangle/TriangleManagement.cpp.o	946ffd3b70107825
 737	842	1703659901208590446	Nearest_Shape	b8e6974a094ce2d4
+2	834	1703755468319425841	CMakeFiles/Nearest_Shape.dir/main.cpp.o	2ac1b57acab5799a
+3	835	1703755468324645926	CMakeFiles/Nearest_Shape.dir/Management/Management.cpp.o	41460bcb7509c8b9
+3	888	1703755468376367909	CMakeFiles/Nearest_Shape.dir/Point/PointManagement.cpp.o	b4bf555beefe429d
+3	888	1703755468375276684	CMakeFiles/Nearest_Shape.dir/LineSegment/LineSegementManagement.cpp.o	ba33368c5ced596e
+4	892	1703755468382384350	CMakeFiles/Nearest_Shape.dir/Triangle/TriangleManagement.cpp.o	946ffd3b70107825
+892	1023	1703755468514614343	Nearest_Shape	b8e6974a094ce2d4
