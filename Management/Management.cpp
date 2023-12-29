@@ -450,6 +450,7 @@ void Management::outputTrianglesMenu() {
     }
     return;
 }
+
 //最近三角形对
 void Management::closestTrianglePairMenu(){
     cout<<"\n查找最近线段对的算法有\n";
