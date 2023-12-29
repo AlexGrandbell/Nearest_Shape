@@ -38,6 +38,16 @@ void TriangleManagement::BruteForceTriangle(){
     cout<<"三角形对结果为:("<<closestTrianglePairResult.first<<")和("<<closestTrianglePairResult.second<<")"<<endl;
     cout<<"距离为:"<<trianglesDistance(closestTrianglePairResult.first,closestTrianglePairResult.second)<<endl;
 }
+//时间下限
+void TriangleManagement::MinTime(){
+    cout<<"开始测试时间下限..."<<endl;
+    startTime = clock();
+    for (int i = 0;i<triangles.size()-1;i++) {
+        trianglesDistance(triangles[i],triangles[i+1]);
+    }
+    endTime = clock();
+    printf("测试结束，运行时间%f秒",((double)(endTime - startTime)) / CLOCKS_PER_SEC);
+}
 
 ////输出方法
 //输出到文件
@@ -268,6 +278,16 @@ pair<Triangle, Triangle> TriangleManagement::bruteForceClosestPairTriangles(cons
         }
     }
     return closestTrianglePair;
+}
+//遍历时间下限
+void TriangleManagement::travelAllTriangles()const{
+    int size = triangles.size();
+    if (size <= 1){
+        throw myExpection("三角形太少");
+    }
+    for (int i = 0;i<size-1;i++) {
+        trianglesDistance(triangles[i],triangles[i+1]);
+    }
 }
 
 ////小工具

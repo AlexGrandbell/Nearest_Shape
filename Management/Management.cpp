@@ -458,6 +458,7 @@ void Management::closestTrianglePairMenu(){
     cout<<"2.优化的算法"<<endl;
     cout<<"3.枚举法"<<endl;
     cout<<"4.都来一遍"<<endl;
+    cout<<"5.时间下限"<<endl;
     cout<<" -----------------------"<<endl;
     cout<<"请选择:";
     try {
@@ -480,6 +481,10 @@ void Management::closestTrianglePairMenu(){
                 triangleManagement.MyTriangleAlgorithm();
                 cout<<endl;
                 triangleManagement.BruteForceTriangle();
+                break;
+            }
+            case 5:{
+                triangleManagement.MinTime();
                 break;
             }
             default: {

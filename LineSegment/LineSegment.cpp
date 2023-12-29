@@ -113,6 +113,7 @@ bool isPointAboveLineSegment(const Point& C,const LineSegment& ls){
 }
 //计算点与线段的距离
 double lineAndPointDistance(const Point& p,const LineSegment& ls){
+    //如果在垂直阴影区域内就计算垂直距离
     if(isPointAboveLineSegment(p,ls)){
         // 计算线段的方向向量
         double dx = ls.end.x - ls.start.x;
@@ -137,7 +138,8 @@ double lineAndPointDistance(const Point& p,const LineSegment& ls){
         double distance = hypot(distanceX, distanceY);
         return distance;
     } else{
-        return numeric_limits<double>::infinity();
+        //否则返回与端点距离最小
+        return min(pointsDistance(p,ls.start), pointsDistance(p,ls.end));
     }
 }
 //计算线段之间的距离
@@ -146,20 +148,13 @@ double lineSegmentsDistance(const LineSegment& ls1,const LineSegment& ls2){
     if (isLineSegmentIntersect(ls1, ls2)){
         return 0.0;
     }
-    //否则计算四个端点到另一条线段的直线的垂线段距离+四条端点距离（可以证明12条之一是最短的）
-    //四条垂线距离
+    //否则计算四个端点到另一条线段的直线的距离最小值
     double d1,d2,d3,d4;
     d1 = lineAndPointDistance(ls1.start,ls2);
     d2 = lineAndPointDistance(ls1.end,ls2);
     d3 = lineAndPointDistance(ls2.start,ls1);
     d4 = lineAndPointDistance(ls2.end,ls1);
-    //四条端点的距离
-    double d5,d6,d7,d8;
-    d5 = pointsDistance(ls1.start,ls2.start);
-    d6 = pointsDistance(ls1.start,ls2.end);
-    d7 = pointsDistance(ls1.end,ls2.start);
-    d8 = pointsDistance(ls1.end,ls2.end);
-    return min({d1,d2,d3,d4,d5,d6,d7,d8});
+    return min({d1,d2,d3,d4});
 }
 //判断与已有线段是否相交
 bool isAnyLineSegmentIntersect(const vector<LineSegment>& lss, const LineSegment& newLS) {

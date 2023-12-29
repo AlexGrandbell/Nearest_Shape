@@ -25,6 +25,8 @@ public:
     void MyTriangleAlgorithm();
     //枚举算法
     void BruteForceTriangle();
+    //时间下限
+    void MinTime();
 
     ////输出方法
     //输出到文件
@@ -49,6 +51,8 @@ private:
     pair<Triangle,Triangle>divideClosestPairTriangles(const vector<Triangle>& tempTriangles)const;
     //枚举算法
     pair<Triangle, Triangle> bruteForceClosestPairTriangles(const vector<Triangle>& tempTriangles)const;
+    //遍历所有三角形
+    void travelAllTriangles()const;
 
     ////小工具
     //输入n
